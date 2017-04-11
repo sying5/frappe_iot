@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<!-- Built on Frappe. https://frappe.io/ -->
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<!--<meta name="viewport" content="width=device-width, initial-scale=1.0">-->
+	<meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+	<title>{% block title %} {{ title | striptags }} {% endblock %}</title>
+	<meta name="generator" content="frappe">
+
+    {% block favicon %}
+	<link rel="shortcut icon"
+		href="{{ (favicon or "/assets/frappe/images/favicon.png") | abs_url }}"
+		type="image/x-icon">
+	<link rel="icon"
+		href="{{ (favicon or "/assets/frappe/images/favicon.png") | abs_url }}"
+		type="image/x-icon">
+    {% endblock %}
+	{%- block head -%}
+		{% if meta_block is defined -%}
+		{{ meta_block }}
+		{%- endif %}
+
+		{% if head_html is defined -%}
+		{{ head_html or "" }}
+		{%- endif %}
+
+	 {%- for link in web_include_css %}
+		<link type="text/css" rel="stylesheet" href="{{ link|abs_url }}">
+		{%- endfor -%}
+	 <link type="text/css" rel="stylesheet" href="/assets/iot/css/style-responsive.css">
+	   <link type="text/css" rel="stylesheet" href="/assets/iot/css/style.css">
+	     <!-- <script src="/assets/iot/js/less.js"></script>-->
+
+	    {%- block head_include %}{{ head_include or "" }}{% endblock -%}
+		{%- block style %}{%- endblock -%}
+	{%- endblock -%}
+    <script>
+    window.frappe = {
+    	page_ready_events: {},
+    	ready: function(fn) {
+    		if (!frappe.page_ready_events[location.pathname]) {
+    			frappe.page_ready_events[location.pathname] = []
+    		}
+    		frappe.page_ready_events[location.pathname].push(fn);
+    	}
+    }
+    window.dev_server = {{ dev_server }};
+    </script>
+</head>
+<body data-path="{{ path }}"class="sticky-header left-side-show">
+<div class="main-section">
+	<div>
+		<header>
+			{%- block banner -%}
+			{% include "templates/includes/banner_extension.html" ignore missing %}
+			{% if banner_html -%}
+			<div class="main-container">
+				<div class='banner'>
+					{{ banner_html or "" }}
+				</div>
+			</div>
+			{%- endif %}
+			{%- endblock -%}
+
+			{%- block navbar -%}
+			{% include "templates/includes/navbar/navbar.html" %}
+			{%- endblock -%}
+		</header>
+		<div class="hero-content">
+			<div class="main-container">
+				{% block content %}{% endblock %}
+			</div>
+		</div>
+		<!--{%- if footer is defined -%}
+		<footer class="page-footer">
+			<div class="container">
+				{{ footer }}
+			</div>
+		</footer>
+		{%- endif -%}-->
+	</div>
+	<!--<div>
+		{%- block footer -%}{% include "templates/includes/footer/footer.html" %}{%- endblock -%}
+	</div>-->
+</div>
+	{% block base_scripts %}
+	<!-- js should be loaded in body! -->
+	<script type="text/javascript"
+		src="/assets/frappe/js/lib/jquery/jquery.min.js"></script>
+	<script type="text/javascript"
+		src="/assets/js/frappe-web.min.js"></script>
+ <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script type="text/javascript" src="/assets/iot/js/html5shiv.js"></script>
+    <script type="text/javascript" src="/assets/iot/js/respond.min.js"></script>
+<![endif]-->
+	<script type="text/javascript" src="/assets/iot/js/jquery-ui-1.9.2.custom.min.js"></script>
+	<script type="text/javascript" src="/assets/iot/js/jquery-migrate-1.2.1.min.js"></script>
+	<script type="text/javascript" src="/assets/iot/js/jquery.nicescroll.js"></script>
+	<script type="text/javascript" src="/assets/iot/js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="/assets/iot/js/scripts.js"></script>
+	{% endblock %}
+    {%- if js_globals is defined %}
+    <script>
+    {%- for key, value in js_globals.iteritems() %}
+    window.{{ key }} = "{{ value[0] }}";
+    {%- endfor -%}
+    </script>
+    {% endif -%}
+
+	{%- for link in web_include_js %}
+	<script type="text/javascript" src="{{ link|abs_url }}"></script>
+	{%- endfor -%}
+
+    {%- block script %}{%- endblock %}
+
+	<!-- csrf_token -->
+
+    {%- block body_include %}{{ body_include or "" }}{% endblock -%}
+</body>
+</html>

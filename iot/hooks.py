@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-
+F# -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 from . import __version__ as app_version
 from frappe import _
@@ -25,6 +25,15 @@ error_report_email = "dirk.chang@symid.com.com"
 # include js, css files in header of web template
 # web_include_css = "/assets/iot/css/iot.css"
 # web_include_js = "/assets/iot/js/iot.js"
+
+web_include_js = [
+    "/assets/js/jquery-ui-1.9.2.custom.min.js",
+]
+
+web_include_css = [
+    "/assets/iot/css/style-responsive.css",
+    "/assets/iot/css/style.css",
+]
 
 # include js in page
 # page_js = {"page" : "public/js/file.js"}

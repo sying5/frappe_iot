@@ -1,0 +1,24 @@
+{% extends "templates/iot_web.html" %}
+{% block title %}{{  }}{% endblock %}
+{% block style %}
+<style>
+    {% include "templates/includes/iot_station_list.css" %}
+</style>
+{% endblock %}
+
+{% block page_content %}
+<div class="iot_station_hearder">
+<ul>
+    <li><a href="#">控制台</a> > </li>
+    <li></li>
+    <li><a href="#">基站</a> > </li>
+    <li><a href="#">基站列表</a> > </li>
+    <li>1234456(北京市海淀区)</li>
+</ul>
+</div>
+<div class="iot_station">
+    <div class=""></div>
+</div>
+
+
+{% endblock %}

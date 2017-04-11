@@ -1,0 +1,75 @@
+{% extends base_template_path %}
+
+{% block hero %}{% endblock %}
+{% block content %}
+<div class="iot-container" id="page-{{ name or route }}" data-path="{{ pathname }}"
+	{% if page_or_generator=="Generator" %}data-doctype="{{ doctype }}"{% endif %}>
+	<div class="iot-cont">
+		{% if show_sidebar %}
+		<div class="left-side sticky-left-side" tabindex="5000" style="overflow: hidden; outline: none;">
+				{% include "templates/iot_sidebar.html" %}
+		</div>
+		{% endif %}
+		<div class="main-content" >
+			<div class="header-section">
+				<a class="toggle-btn"><img src="/assets/iot/images/bars_1.png"></a>
+				<div class="menu-right">
+					<ul class="notification-menu">
+						<li class="dropdown logged-in" id="website-post-login" data-label="website-post-login" style="">
+							<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+								<span class="user-image-wrapper"><span class="avatar avatar-small" title="user-img">
+									<div class="standard-image" style="background-color: #fafbfc;">{{user_img}}</div></span></span>
+								<span class="full-name">{{ fullname }}</span>
+								<b class="caret"></b>
+							</a>
+							<ul class="dropdown-menu dropdown-menu-usermenu pull-right" role="menu">
+								<li data-label="My Account"><a href="/me" rel="nofollow">
+								My Account
+							</a></li>
+								<li data-label="Logout"><a href="/?cmd=web_logout" rel="nofollow">
+								Logout
+							</a>
+							</ul>
+						</li>
+					</ul>
+				</div>
+			</div>
+			<div class="iot-contentt">
+				<div class="row page-head">
+					<div class='col-sm-12'>
+						{% if not no_breadcrumbs and parents %}
+						<div class="page-breadcrumbs">
+							{% block breadcrumbs %}
+							{% include 'templates/includes/breadcrumbs.html' %}
+							{% endblock %}
+						</div>
+						{% endif %}
+					</div>
+
+					<div class="col-sm-8 col-xs-6">
+						{% block header %}{% endblock %}
+					</div>
+					<div class="col-sm-4 col-xs-6">
+						{% if show_search %}
+						<div class="page-search-block">
+							{% block search %}
+							{% include 'templates/includes/search_box.html' %}
+							{% endblock %}
+						</div>
+						{% endif %}
+
+						{% if self.header_actions() %}
+						<div class="page-header-actions-block">
+							{% block header_actions %}{% endblock %}
+						</div>
+						{% endif %}
+					</div>
+				</div>
+				<div class="page_content">
+					{%- block page_content -%}{%- endblock -%}
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+{% endblock %}
